@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Price Comparison Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="container">
+                <h1 class="header__title">Global Price Comparison Tool</h1>
+                <p class="header__subtitle">Find the best prices across multiple countries and vendors</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="container">
+                <!-- Search Section -->
+                <section class="search-section">
+                    <div class="search-card card">
+                        <div class="card__body">
+                            <form id="searchForm">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="country" class="form-label">Select Country</label>
+                                        <select id="country" class="form-control" required>
+                                            <option value="">Choose a country...</option>
+                                            <option value="US">🇺🇸 United States</option>
+                                            <option value="IN">🇮🇳 India</option>
+                                            <option value="UK">🇬🇧 United Kingdom</option>
+                                            <option value="JP">🇯🇵 Japan</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="query" class="form-label">Product Search</label>
+                                        <input type="text" id="query" class="form-control" 
+                                               placeholder="Enter product name (e.g., iPhone 16 Pro)" required>
+                                    </div>
+                                </div>
+                                <button type="submit" id="searchBtn" class="btn btn--primary btn--lg search-btn">
+                                    <span class="btn-text">🔍 Search Prices</span>
+                                    <span class="btn-spinner hidden">⏳</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Loading Section -->
+                <section id="loadingSection" class="loading-section hidden">
+                    <div class="loading-card card">
+                        <div class="loading-content">
+                            <div class="loading-spinner">🔄</div>
+                            <h3>Searching for the best prices...</h3>
+                            <p>Please wait while we compare prices across multiple vendors</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Results Section -->
+                <section id="resultsSection" class="results-section hidden">
+                    <div class="results-header">
+                        <h2 id="resultsTitle">Search Results</h2>
+                        <p id="resultsCount">Found 0 products</p>
+                    </div>
+                    <div id="resultsGrid" class="results-grid"></div>
+                </section>
+
+                <!-- Features Section -->
+                <section class="features-section">
+                    <div class="section-header">
+                        <h2>Why Use Our Price Comparison Tool?</h2>
+                        <p>Discover the key features that make our tool the best choice for finding great deals</p>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card card">
+                            <div class="card__body">
+                                <span class="feature-icon">🌍</span>
+                                <h3>Multi-Country Support</h3>
+                                <p>Works across ALL countries for EVERY category of products</p>
+                            </div>
+                        </div>
+                        <div class="feature-card card">
+                            <div class="card__body">
+                                <span class="feature-icon">🤖</span>
+                                <h3>AI-Powered Matching</h3>
+                                <p>Uses fuzzy matching algorithms to identify similar products</p>
+                            </div>
+                        </div>
+                        <div class="feature-card card">
+                            <div class="card__body">
+                                <span class="feature-icon">⚡</span>
+                                <h3>Real-Time Results</h3>
+                                <p>Fast concurrent scraping with results sorted by price</p>
+                            </div>
+                        </div>
+                        <div class="feature-card card">
+                            <div class="card__body">
+                                <span class="feature-icon">🛡️</span>
+                                <h3>Rate Limiting</h3>
+                                <p>Respects website policies with smart throttling</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Examples Section -->
+                <section class="examples-section">
+                    <div class="section-header">
+                        <h2>Try These Example Searches</h2>
+                        <p>Click on any example to see it in action</p>
+                    </div>
+                    <div class="examples-grid">
+                        <button class="example-btn" data-country="US" data-query="iPhone 16 Pro">
+                            <span class="example-flag">🇺🇸</span>
+                            <span class="example-text">iPhone 16 Pro in USA</span>
+                        </button>
+                        <button class="example-btn" data-country="IN" data-query="boAt Airdopes">
+                            <span class="example-flag">🇮🇳</span>
+                            <span class="example-text">boAt Airdopes in India</span>
+                        </button>
+                        <button class="example-btn" data-country="UK" data-query="Samsung Galaxy S24">
+                            <span class="example-flag">🇬🇧</span>
+                            <span class="example-text">Samsung Galaxy S24 in UK</span>
+                        </button>
+                        <button class="example-btn" data-country="JP" data-query="Nintendo Switch">
+                            <span class="example-flag">🇯🇵</span>
+                            <span class="example-text">Nintendo Switch in Japan</span>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- API Section -->
+                <section class="api-section">
+                    <div class="section-header">
+                        <h2>API Documentation</h2>
+                        <p>Integrate our price comparison service into your applications</p>
+                    </div>
+                    <div class="api-grid">
+                        <div class="api-card card">
+                            <div class="card__body">
+                                <h3>Basic Search</h3>
+                                <pre><code>curl -X GET "https://api.pricecompare.com/search?country=US&query=iPhone%2016%20Pro"</code></pre>
+                            </div>
+                        </div>
+                        <div class="api-card card">
+                            <div class="card__body">
+                                <h3>Response Format</h3>
+                                <pre><code>{
+  "results": [
+    {
+      "productName": "iPhone 16 Pro 128GB",
+      "price": "999.00",
+      "currency": "USD",
+      "vendor": "Apple Store",
+      "link": "https://apple.com/...",
+      "availability": "in_stock"
+    }
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 Global Price Comparison Tool. Built with modern web technologies.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
